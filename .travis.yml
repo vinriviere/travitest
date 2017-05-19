@@ -1,0 +1,24 @@
+language: c
+os: linux
+dist: trusty
+sudo: required
+
+before_install:
+  - pwd
+  - ./install_ssh_id.sh
+
+script:
+  - mkdir release-archives
+  - touch release-archives/a.txt
+  - touch release-archives/b.txt
+  - echo "https://github.com/emutos/emutos/commit/$TRAVIS_COMMIT" >release-archives/README.txt
+  - echo "" >>release-archives/README.txt
+  - git log -1 --name-status $TRAVIS_COMMIT >>release-archives/README.txt
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: ./.travis_deploy.sh
+  on:
+    repo: vinriviere/travitest
+    branch: master
