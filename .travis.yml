@@ -1,24 +1,33 @@
 language: c
 os: linux
-dist: trusty
-sudo: required
+dist: xenial
 
 before_install:
   - pwd
-  - ./install_ssh_id.sh
+#  - ./install_ssh_id.sh
 
 script:
-  - mkdir release-archives
-  - touch release-archives/a.txt
-  - touch release-archives/b.txt
-  - echo "https://github.com/emutos/emutos/commit/$TRAVIS_COMMIT" >release-archives/README.txt
-  - echo "" >>release-archives/README.txt
-  - git log -1 --name-status $TRAVIS_COMMIT >>release-archives/README.txt
+#  - mkdir release-archives
+#  - touch release-archives/a.txt
+#  - touch release-archives/b.txt
+#  - echo "Built by Travis CI:" >release-archives/README.txt
+#  - echo "https://travis-ci.org/emutos/emutos/builds/$TRAVIS_BUILD_ID" >>release-archives/README.txt
+#  - echo "https://github.com/emutos/emutos/commit/$TRAVIS_COMMIT" >release-archives/README.txt
+#  - echo "" >>release-archives/README.txt
+#  - git log -1 --name-status $TRAVIS_COMMIT >>release-archives/README.txt
+  - ruby --version
+  - ls -lRa ~/.travis
+  - sudo apt-get install python-launchpadlib
+  - sudo gem pristine executable-hooks --version 1.5.0
+#  - sudo rvm uninstall 2.4.0
+#  - sudo rvm install 2.4.0
+  - sudo gem install travis --no-rdoc --no-ri
+  - travis --help
 
 deploy:
-  skip_cleanup: true
-  provider: script
-  script: ./.travis_deploy.sh
-  on:
-    repo: vinriviere/travitest
-    branch: master
+#  skip_cleanup: true
+#  provider: script
+#  script: ./.travis_deploy.sh
+#  on:
+#    repo: vinriviere/travitest
+#    branch: master
